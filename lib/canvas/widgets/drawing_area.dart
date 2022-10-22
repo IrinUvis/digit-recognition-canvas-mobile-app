@@ -12,6 +12,8 @@ class DrawingArea extends StatelessWidget {
     required this.onPanEnd,
     required this.currentlyDrawnLine,
     required this.allDrawnLines,
+    required this.strokeColor,
+    required this.strokeWidth,
   }) : super(key: key);
 
   final double width;
@@ -21,6 +23,8 @@ class DrawingArea extends StatelessWidget {
   final void Function(DragEndDetails) onPanEnd;
   final DrawnLine? currentlyDrawnLine;
   final List<DrawnLine> allDrawnLines;
+  final Color strokeColor;
+  final double strokeWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +48,8 @@ class DrawingArea extends StatelessWidget {
                     lines: currentlyDrawnLine != null
                         ? (List.of(allDrawnLines)..add(currentlyDrawnLine!))
                         : allDrawnLines,
-                    color: Theme.of(context).brightness == Brightness.light
-                        ? Colors.black
-                        : Colors.white,
-                    width: 10.0,
+                    strokeColor: strokeColor,
+                    strokeWidth: strokeWidth,
                   ),
                 ),
               ),
