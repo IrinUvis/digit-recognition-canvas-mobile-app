@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'digit_recognition_canvas_mobile_app.dart';
+
 void main() {
-  // TODO: runApp(const DigitRecognitionCanvasMobileApp);
+  runApp(const DigitRecognitionCanvasMobileApp());
 }
