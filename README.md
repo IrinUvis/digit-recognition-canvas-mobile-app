@@ -11,3 +11,7 @@ The program is made as a project for Artificial Intelligence class, which is a p
 Before running additional setup needs to be made, due to usage of [tflite_flutter](https://pub.dev/packages/tflite_flutter) plugin.
 Execute `sh install.sh` (Linux) / `install.bat` (Windows) at the root of your project to automatically download and place binaries at appropriate folders.
 These scripts install pre-built binaries based on latest stable tensorflow release. 
+
+## How it works
+
+![App demo](readme/app_recording.gif)
