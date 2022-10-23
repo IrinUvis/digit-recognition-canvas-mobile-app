@@ -14,31 +14,36 @@ class PredictionDetailsSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     if (predictionDetails != null) {
       return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'Prediction summary:',
             style: Theme.of(context).textTheme.titleLarge,
           ),
-          Text(
-            'Predicted digit:',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          Text(
-            'Digit: ${predictionDetails!.digit.toString()}',
-          ),
-          Text(
-            'Probability: ${(predictionDetails!.predictionProbability * 100).toStringAsFixed(2)}%',
-          ),
-          Text(
-            'Second most probable digit:',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          Text(
-            'Digit: ${predictionDetails!.secondMostProbableDigit.toString()}',
-          ),
-          Text(
-            'Probability: ${(predictionDetails!.secondMostProbableDigitProbability * 100).toStringAsFixed(2)}%',
+          Expanded(
+            child: ListView(
+              children: [
+                Text(
+                  'Predicted digit:',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                Text(
+                  'Digit: ${predictionDetails!.digit.toString()}',
+                ),
+                Text(
+                  'Probability: ${(predictionDetails!.predictionProbability * 100).toStringAsFixed(2)}%',
+                ),
+                Text(
+                  'Second most probable digit:',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                Text(
+                  'Digit: ${predictionDetails!.secondMostProbableDigit.toString()}',
+                ),
+                Text(
+                  'Probability: ${(predictionDetails!.secondMostProbableDigitProbability * 100).toStringAsFixed(2)}%',
+                ),
+              ],
+            ),
           ),
         ],
       );
