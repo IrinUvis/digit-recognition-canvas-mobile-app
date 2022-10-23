@@ -1,12 +1,11 @@
 import 'dart:ui';
 
-import 'package:digit_recognition_canvas_mobile_app/canvas/models/digit.dart';
-import 'package:digit_recognition_canvas_mobile_app/canvas/models/prediction_details.dart';
+import 'package:digit_recognition_canvas_mobile_app/canvas/models/digit_prediction_details.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 
+import '../../tflite/classifiers/digit_classifier.dart';
 import '../models/drawn_line.dart';
 
 part 'canvas_event.dart';
@@ -19,7 +18,7 @@ class CanvasBloc extends Bloc<CanvasEvent, CanvasState> {
           const CanvasState(
             currentlyDrawnLine: null,
             allDrawnLines: [],
-            predictionDetails: null,
+            digitPredictionDetails: null,
           ),
         ) {
     on<CanvasDrawingStarted>(_onDrawingStarted);
@@ -38,7 +37,7 @@ class CanvasBloc extends Bloc<CanvasEvent, CanvasState> {
       CanvasState(
         currentlyDrawnLine: line,
         allDrawnLines: state.allDrawnLines,
-        predictionDetails: state.predictionDetails,
+        digitPredictionDetails: state.digitPredictionDetails,
       ),
     );
   }
@@ -52,7 +51,7 @@ class CanvasBloc extends Bloc<CanvasEvent, CanvasState> {
       CanvasState(
         currentlyDrawnLine: DrawnLine(path: path),
         allDrawnLines: state.allDrawnLines,
-        predictionDetails: state.predictionDetails,
+        digitPredictionDetails: state.digitPredictionDetails,
       ),
     );
   }
@@ -67,7 +66,7 @@ class CanvasBloc extends Bloc<CanvasEvent, CanvasState> {
       CanvasState(
         currentlyDrawnLine: null,
         allDrawnLines: allDrawnLines,
-        predictionDetails: state.predictionDetails,
+        digitPredictionDetails: state.digitPredictionDetails,
       ),
     );
   }
@@ -80,7 +79,7 @@ class CanvasBloc extends Bloc<CanvasEvent, CanvasState> {
       const CanvasState(
         currentlyDrawnLine: null,
         allDrawnLines: [],
-        predictionDetails: null,
+        digitPredictionDetails: null,
       ),
     );
   }
@@ -95,12 +94,12 @@ class CanvasBloc extends Bloc<CanvasEvent, CanvasState> {
     final strokeWidth = event.strokeWidth;
     final canvasSize = event.canvasSize.toInt();
 
+    canvas.drawColor(Colors.black, BlendMode.src);
+
     Paint paint = Paint()
-      ..color = Colors.black
+      ..color = Colors.white
       ..strokeCap = StrokeCap.round
       ..strokeWidth = strokeWidth;
-
-    canvas.drawColor(Colors.white, BlendMode.src);
 
     for (int i = 0; i < lines.length; ++i) {
       for (int j = 0; j < lines[i].path.length - 1; ++j) {
@@ -110,42 +109,15 @@ class CanvasBloc extends Bloc<CanvasEvent, CanvasState> {
 
     final picture = recorder.endRecording();
     final image = await picture.toImage(canvasSize, canvasSize);
+    final classifier = await DigitClassifier.create();
+    final digitPredictionDetails = await classifier.classify(image);
+    classifier.close();
 
-    // Now we scale the image to 28x28
-    const outputImageSize = 28;
-
-    final scalingRecorder = PictureRecorder();
-    final scalingCanvas = Canvas(scalingRecorder);
-    paintImage(
-      canvas: scalingCanvas,
-      rect: Rect.fromLTWH(
-        0,
-        0,
-        outputImageSize.toDouble(),
-        outputImageSize.toDouble(),
-      ),
-      image: image,
-      fit: BoxFit.scaleDown,
-      filterQuality: FilterQuality.high,
-    );
-    final scaledPicture = scalingRecorder.endRecording();
-    final scaledImage =
-        await scaledPicture.toImage(outputImageSize, outputImageSize);
-    final byteData = await scaledImage.toByteData(format: ImageByteFormat.png);
-    final pngBytes = byteData!.buffer.asUint8List();
-    await ImageGallerySaver.saveImage(
-      pngBytes,
-      quality: 100,
-      name: DateTime.now().toIso8601String(),
-      isReturnImagePathOfIOS: true,
-    );
-
-    // TODO: use .tflite model
     emit(
       CanvasState(
         currentlyDrawnLine: state.currentlyDrawnLine,
         allDrawnLines: state.allDrawnLines,
-        predictionDetails: PredictionDetails(digit: Digit.seven),
+        digitPredictionDetails: digitPredictionDetails,
       ),
     );
   }

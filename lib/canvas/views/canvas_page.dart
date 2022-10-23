@@ -67,7 +67,7 @@ class CanvasView extends StatelessWidget {
                     ),
                   ),
                   PredictionDetailsSummary(
-                    predictionDetails: state.predictionDetails,
+                    predictionDetails: state.digitPredictionDetails,
                   ),
                 ],
               ),

@@ -8,7 +8,8 @@ enum Digit {
   six,
   seven,
   eight,
-  nine;
+  nine,
+  unknown;
 
   @override
   String toString() {
@@ -33,6 +34,26 @@ enum Digit {
         return '8';
       case Digit.nine:
         return '9';
+      case Digit.unknown:
+        return 'unknown';
+    }
+  }
+}
+
+extension DigitConversion on int {
+  Digit toDigit() {
+    switch(this) {
+      case 0: return Digit.zero;
+      case 1: return Digit.one;
+      case 2: return Digit.two;
+      case 3: return Digit.three;
+      case 4: return Digit.four;
+      case 5: return Digit.five;
+      case 6: return Digit.six;
+      case 7: return Digit.seven;
+      case 8: return Digit.eight;
+      case 9: return Digit.nine;
+      default: return Digit.unknown;
     }
   }
 }

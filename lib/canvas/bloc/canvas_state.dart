@@ -4,13 +4,13 @@ class CanvasState extends Equatable {
   const CanvasState({
     required this.currentlyDrawnLine,
     required this.allDrawnLines,
-    required this.predictionDetails,
+    required this.digitPredictionDetails,
   });
 
   final DrawnLine? currentlyDrawnLine;
   final List<DrawnLine> allDrawnLines;
-  final PredictionDetails? predictionDetails;
+  final DigitPredictionDetails? digitPredictionDetails;
 
   @override
-  List<Object?> get props => [currentlyDrawnLine, allDrawnLines, predictionDetails];
+  List<Object?> get props => [currentlyDrawnLine, allDrawnLines, digitPredictionDetails];
 }
