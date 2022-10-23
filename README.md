@@ -1,16 +1,13 @@
-# digit_recognition_canvas_mobile_app
+# Digit recognition canvas mobile app
 
-A canvas app, that classifies the drawings as digits using the pre-trained model
+A canvas app, that classifies the drawings as digits using the pre-trained model.
+The mobile app allows to draw on a square canvas, and if prompted to classify the drawing as one of the digits.
+For this purpose a pre-trained model will be used, which I have trained using Google Colaboratory [notebook](https://colab.research.google.com/drive/1H0VFjxyzi7F1tKkkQH1V6MySd66fphsW?usp=sharing).
 
-## Getting Started
+The program is made as a project for Artificial Intelligence class, which is a part of my bachelor studies.
 
-This project is a starting point for a Flutter application.
+## Before running
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Before running additional setup needs to be made, due to usage of [tflite_flutter](https://pub.dev/packages/tflite_flutter) plugin.
+Execute `sh install.sh` (Linux) / `install.bat` (Windows) at the root of your project to automatically download and place binaries at appropriate folders.
+These scripts install pre-built binaries based on latest stable tensorflow release. 
