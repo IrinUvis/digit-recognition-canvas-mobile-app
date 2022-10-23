@@ -1,6 +1,8 @@
 import 'package:digit_recognition_canvas_mobile_app/canvas/bloc/canvas_bloc.dart';
 import 'package:digit_recognition_canvas_mobile_app/canvas/widgets/canvas_buttons.dart';
 import 'package:digit_recognition_canvas_mobile_app/canvas/widgets/drawing_area.dart';
+import 'package:digit_recognition_canvas_mobile_app/canvas/widgets/toggle_theme_button.dart';
+import 'package:digit_recognition_canvas_mobile_app/theme/bloc/theme_cubit.dart';
 import 'package:digit_recognition_canvas_mobile_app/util/widgets/screen_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +25,7 @@ class CanvasView extends StatelessWidget {
   const CanvasView({Key? key}) : super(key: key);
 
   static const horizontalPadding = 16.0;
-  static const double strokeWidth = 20.0;
+  static const strokeWidth = 20.0;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,14 @@ class CanvasView extends StatelessWidget {
         MediaQuery.of(context).size.width - 2 * horizontalPadding;
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Digit predictor'),
+        actions: [
+          ToggleThemeButton(
+            onPressed: () => context.read<ThemeCubit>().toggleTheme(),
+          ),
+        ],
+      ),
       body: BlocBuilder<CanvasBloc, CanvasState>(
         builder: (context, state) {
           return ScreenPadding(
@@ -66,8 +76,10 @@ class CanvasView extends StatelessWidget {
                           ),
                     ),
                   ),
-                  PredictionDetailsSummary(
-                    predictionDetails: state.digitPredictionDetails,
+                  Expanded(
+                    child: PredictionDetailsSummary(
+                      predictionDetails: state.digitPredictionDetails,
+                    ),
                   ),
                 ],
               ),
