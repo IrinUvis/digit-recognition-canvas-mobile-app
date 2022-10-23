@@ -38,5 +38,11 @@ class CanvasCleared extends CanvasEvent {
 }
 
 class CanvasDrawingChecked extends CanvasEvent {
-  const CanvasDrawingChecked();
+  const CanvasDrawingChecked({
+    required this.canvasSize,
+    required this.strokeWidth,
+  });
+
+  final double canvasSize;
+  final double strokeWidth;
 }

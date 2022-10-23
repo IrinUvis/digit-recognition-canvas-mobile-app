@@ -5,20 +5,20 @@ import '../models/drawn_line.dart';
 class Sketcher extends CustomPainter {
   Sketcher({
     required this.lines,
-    required this.color,
-    required this.width,
+    required this.strokeColor,
+    required this.strokeWidth,
   });
 
   final List<DrawnLine> lines;
-  final Color color;
-  final double width;
+  final Color strokeColor;
+  final double strokeWidth;
 
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
-      ..color = color
+      ..color = strokeColor
       ..strokeCap = StrokeCap.round
-      ..strokeWidth = width;
+      ..strokeWidth = strokeWidth;
 
     canvas.clipRect(Rect.fromLTWH(0, 0, size.width, size.height));
 

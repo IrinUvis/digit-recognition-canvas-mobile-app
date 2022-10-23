@@ -1,9 +1,11 @@
 import 'package:digit_recognition_canvas_mobile_app/canvas/bloc/canvas_bloc.dart';
+import 'package:digit_recognition_canvas_mobile_app/canvas/widgets/canvas_buttons.dart';
 import 'package:digit_recognition_canvas_mobile_app/canvas/widgets/drawing_area.dart';
-import 'package:digit_recognition_canvas_mobile_app/util/widgets/filled_tonal_button.dart';
 import 'package:digit_recognition_canvas_mobile_app/util/widgets/screen_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../widgets/prediction_details_summary.dart';
 
 class CanvasPage extends StatelessWidget {
   const CanvasPage({Key? key}) : super(key: key);
@@ -21,8 +23,7 @@ class CanvasView extends StatelessWidget {
   const CanvasView({Key? key}) : super(key: key);
 
   static const horizontalPadding = 16.0;
-  final Color selectedColor = Colors.white;
-  final double selectedWidth = 5.0;
+  static const double strokeWidth = 20.0;
 
   @override
   Widget build(BuildContext context) {
@@ -46,28 +47,27 @@ class CanvasView extends StatelessWidget {
                     onPanEnd: (details) => onPanEnd(details, context),
                     currentlyDrawnLine: state.currentlyDrawnLine,
                     allDrawnLines: state.allDrawnLines,
+                    strokeColor:
+                        Theme.of(context).brightness == Brightness.light
+                            ? Colors.black
+                            : Colors.white,
+                    strokeWidth: strokeWidth,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        TextButton.icon(
-                          onPressed: () => context
-                              .read<CanvasBloc>()
-                              .add(const CanvasCleared()),
-                          icon: const Icon(Icons.clear),
-                          label: const Text('Clear'),
-                        ),
-                        FilledTonalButton(
-                          onPressed: () => context
-                              .read<CanvasBloc>()
-                              .add(const CanvasDrawingChecked()),
-                          icon: Icons.check,
-                          label: const Text('Check'),
-                        ),
-                      ],
+                    child: CanvasButtons(
+                      onClearPressed: () =>
+                          context.read<CanvasBloc>().add(const CanvasCleared()),
+                      onCheckPressed: () => context.read<CanvasBloc>().add(
+                            CanvasDrawingChecked(
+                              canvasSize: canvasSize,
+                              strokeWidth: strokeWidth,
+                            ),
+                          ),
                     ),
+                  ),
+                  PredictionDetailsSummary(
+                    predictionDetails: state.digitPredictionDetails,
                   ),
                 ],
               ),
