@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../models/digit_prediction_details.dart';
 
+/// Widget displaying details of prediction in scrollable manner if it is needed.
 class PredictionDetailsSummary extends StatelessWidget {
   const PredictionDetailsSummary({
     Key? key,

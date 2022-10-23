@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Icon button with [Icons.brightness_6] as its icon.
 class ToggleThemeButton extends StatelessWidget {
   const ToggleThemeButton({
     Key? key,

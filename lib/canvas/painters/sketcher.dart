@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../models/drawn_line.dart';
 
+/// A [CustomPainter] implementation for drawing initiated by user.
 class Sketcher extends CustomPainter {
   Sketcher({
     required this.lines,

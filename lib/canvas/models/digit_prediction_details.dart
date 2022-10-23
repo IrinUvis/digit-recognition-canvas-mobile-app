@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import 'digit.dart';
 
+/// Wrapper class for all relevant prediction data.
 class DigitPredictionDetails extends Equatable {
   const DigitPredictionDetails({
     required this.digit,

@@ -1,3 +1,4 @@
+/// Enum class containing all digits.
 enum Digit {
   zero,
   one,

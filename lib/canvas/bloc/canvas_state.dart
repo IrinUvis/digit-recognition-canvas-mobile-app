@@ -1,5 +1,6 @@
 part of 'canvas_bloc.dart';
 
+/// State object containing all changing data about [CanvasView].
 class CanvasState extends Equatable {
   const CanvasState({
     required this.currentlyDrawnLine,

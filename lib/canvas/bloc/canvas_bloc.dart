@@ -12,6 +12,7 @@ part 'canvas_event.dart';
 
 part 'canvas_state.dart';
 
+/// Bloc for management of [CanvasState]. It should wrap [CanvasView].
 class CanvasBloc extends Bloc<CanvasEvent, CanvasState> {
   CanvasBloc()
       : super(

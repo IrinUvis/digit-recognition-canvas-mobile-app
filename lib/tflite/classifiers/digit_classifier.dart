@@ -5,8 +5,20 @@ import 'package:digit_recognition_canvas_mobile_app/canvas/models/digit_predicti
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:image/image.dart' as img_lib;
 
+/// Class allowing use of TFLite model, for predicting drawn digit from an [Image].
+/// After using the classifier, the interpreter needs to be closed. Therefore be sure to close it.
+///
+/// Example use:
+/// ```dart
+/// const classifier = await DigitClassifier.create();
+/// const predictionDetails = classifier.classify(image);
+/// classifier.close();
+/// ```
 class DigitClassifier {
-  DigitClassifier._create({required this.interpreter, required this.labels});
+  DigitClassifier._create({
+    required this.interpreter,
+    required this.labels,
+  });
 
   static Future<DigitClassifier> create() async {
     final interpreter = await Interpreter.fromAsset(_modelFileName);
@@ -22,9 +34,6 @@ class DigitClassifier {
 
   final Interpreter interpreter;
   final List<String> labels;
-
-  // input - List<List<28List<28TfLiteType.float32>>> type: TfLiteType.float32, shape: [1, 28, 28], data:  3136 = 28x28x4
-  // output - List<List<10TfLiteType.float32>> type: TfLiteType.float32, shape: [1, 10], data:  40 = 10x4
 
   Future<DigitPredictionDetails> classify(Image image) async {
     final byteData = await image.toByteData(format: ImageByteFormat.png);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../util/widgets/filled_tonal_button.dart';
 
+/// Row of buttons with actions relevant to [CanvasView].
 class CanvasButtons extends StatelessWidget {
   const CanvasButtons({
     Key? key,

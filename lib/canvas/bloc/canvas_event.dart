@@ -1,5 +1,6 @@
 part of 'canvas_bloc.dart';
 
+/// Abstract Canvas event from, which all other Canvas Events should inherit.
 abstract class CanvasEvent extends Equatable {
   const CanvasEvent();
 
@@ -7,6 +8,7 @@ abstract class CanvasEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+/// Canvas event to be called, when user starts drawing on the canvas.
 class CanvasDrawingStarted extends CanvasEvent {
   const CanvasDrawingStarted({
     required this.firstPoint,
@@ -18,6 +20,7 @@ class CanvasDrawingStarted extends CanvasEvent {
   List<Object?> get props => [firstPoint];
 }
 
+/// Canvas event to be called, when user continues touching the canvas.
 class CanvasDrawingInProgress extends CanvasEvent {
   const CanvasDrawingInProgress({
     required this.newPoint,
@@ -29,14 +32,17 @@ class CanvasDrawingInProgress extends CanvasEvent {
   List<Object?> get props => [newPoint];
 }
 
+/// Canvas event to be called, when user stops drawing on the canvas.
 class CanvasDrawingFinished extends CanvasEvent {
   const CanvasDrawingFinished();
 }
 
+/// Canvas event to be called, when canvas should be cleared.
 class CanvasCleared extends CanvasEvent {
   const CanvasCleared();
 }
 
+/// Canvas event to be called, in order to attempt predicting digit from canvas drawing.
 class CanvasDrawingChecked extends CanvasEvent {
   const CanvasDrawingChecked({
     required this.canvasSize,
