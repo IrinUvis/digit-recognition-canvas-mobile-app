@@ -47,7 +47,6 @@ class CanvasView extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(horizontalPadding),
               child: Column(
-                // global key?
                 children: [
                   DrawingArea(
                     width: canvasSize,
