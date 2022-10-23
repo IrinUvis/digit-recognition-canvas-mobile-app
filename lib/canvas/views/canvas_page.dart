@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../widgets/prediction_details_summary.dart';
 
+/// Canvas Page - provides Canvas Bloc to all its child widgets.
 class CanvasPage extends StatelessWidget {
   const CanvasPage({Key? key}) : super(key: key);
 
@@ -21,6 +22,7 @@ class CanvasPage extends StatelessWidget {
   }
 }
 
+/// Canvas View - main screen of the app.
 class CanvasView extends StatelessWidget {
   const CanvasView({Key? key}) : super(key: key);
 
@@ -89,16 +91,19 @@ class CanvasView extends StatelessWidget {
     );
   }
 
+  /// Method to be called as onPanStart callback from [GestureDetector].
   void onPanStart(DragStartDetails details, BuildContext context) {
     final point = details.localPosition;
     context.read<CanvasBloc>().add(CanvasDrawingStarted(firstPoint: point));
   }
 
+  /// Method to be called as onPanUpdate callback from [GestureDetector].
   void onPanUpdate(DragUpdateDetails details, BuildContext context) {
     final point = details.localPosition;
     context.read<CanvasBloc>().add(CanvasDrawingInProgress(newPoint: point));
   }
 
+  /// Method to be called as onPanEnd callback from [GestureDetector].
   void onPanEnd(DragEndDetails details, BuildContext context) {
     context.read<CanvasBloc>().add(const CanvasDrawingFinished());
   }

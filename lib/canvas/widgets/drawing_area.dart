@@ -2,6 +2,7 @@ import 'package:digit_recognition_canvas_mobile_app/canvas/models/drawn_line.dar
 import 'package:digit_recognition_canvas_mobile_app/canvas/painters/sketcher.dart';
 import 'package:flutter/material.dart';
 
+/// Canvas-like widget where user draws.
 class DrawingArea extends StatelessWidget {
   const DrawingArea({
     Key? key,

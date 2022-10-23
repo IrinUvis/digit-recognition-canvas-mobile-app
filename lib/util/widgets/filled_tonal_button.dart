@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// Filled Tonal Button widget compliant with [Material 3 guidelines](https://m3.material.io/components/buttons/guidelines#07a1577b-aaf5-4824-a698-03526421058b).
+/// Created manually, because the button has not been added to flutter yet.
 class FilledTonalButton extends StatelessWidget {
   const FilledTonalButton({
     Key? key,

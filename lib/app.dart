@@ -2,6 +2,7 @@ import 'package:digit_recognition_canvas_mobile_app/canvas/views/canvas_page.dar
 import 'package:digit_recognition_canvas_mobile_app/theme/bloc/theme_cubit.dart';
 import 'package:digit_recognition_canvas_mobile_app/theme/color_scheme/color_schemes.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,7 +12,9 @@ class DigitRecognitionCanvasMobileApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => ThemeCubit(),
+      create: (_) => ThemeCubit(
+        initialBrightness: SchedulerBinding.instance.window.platformBrightness,
+      ),
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
           final brightness = state.brightness;

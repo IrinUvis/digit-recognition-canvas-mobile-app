@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+/// Padding protecting UI from overlapping with status and navigation bars.
 class ScreenPadding extends StatelessWidget {
-  const ScreenPadding({Key? key, required this.child}) : super(key: key);
+  const ScreenPadding({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
 
   final Widget child;
 
